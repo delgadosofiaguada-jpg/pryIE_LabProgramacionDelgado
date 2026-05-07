@@ -16,5 +16,14 @@ namespace pryIE_LabProgramacion
         {
             InitializeComponent();
         }
+
+        private void lblInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MessageBox.Show(" Analista de Sistemas\n" +
+                            "Laboratorio de Programación 2\n" +
+                            "1º Instancia Evaluativa\n" +
+                            "Información del Alumno\n" +
+                            "DNI:46656705 – Delgado Sofía");
+        }
     }
 }
