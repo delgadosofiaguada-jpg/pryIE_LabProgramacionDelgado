@@ -31,7 +31,7 @@
             this.cbRubros = new System.Windows.Forms.ComboBox();
             this.lblRubros = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.dgvArticulos = new System.Windows.Forms.DataGridView();
             this.clColdigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.clCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -44,7 +44,7 @@
             this.lblCantlabel = new System.Windows.Forms.Label();
             this.lblTotlabel = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.LinkLabel();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
             // cbRubros
@@ -76,19 +76,19 @@
             this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Consulta de artículos";
             // 
-            // dataGridView1
+            // dgvArticulos
             // 
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvArticulos.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvArticulos.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.clColdigo,
             this.clDescripcion,
             this.clCosto,
             this.clStock,
             this.clValorStock});
-            this.dataGridView1.Location = new System.Drawing.Point(12, 145);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(633, 228);
-            this.dataGridView1.TabIndex = 3;
+            this.dgvArticulos.Location = new System.Drawing.Point(12, 145);
+            this.dgvArticulos.Name = "dgvArticulos";
+            this.dgvArticulos.Size = new System.Drawing.Size(633, 228);
+            this.dgvArticulos.TabIndex = 3;
             // 
             // clColdigo
             // 
@@ -125,6 +125,7 @@
             this.cmdConsultar.TabIndex = 4;
             this.cmdConsultar.Text = "Consultar";
             this.cmdConsultar.UseVisualStyleBackColor = true;
+            this.cmdConsultar.Click += new System.EventHandler(this.cmdConsultar_Click);
             // 
             // cmdExportarDatos
             // 
@@ -199,13 +200,15 @@
             this.Controls.Add(this.lblCantidad);
             this.Controls.Add(this.cmdExportarDatos);
             this.Controls.Add(this.cmdConsultar);
-            this.Controls.Add(this.dataGridView1);
+            this.Controls.Add(this.dgvArticulos);
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblRubros);
             this.Controls.Add(this.cbRubros);
             this.Name = "frmVentaEquipos";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Venta de equipos informáticos";
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            this.Load += new System.EventHandler(this.frmVentaEquipos_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -216,7 +219,7 @@
         private System.Windows.Forms.ComboBox cbRubros;
         private System.Windows.Forms.Label lblRubros;
         private System.Windows.Forms.Label lblTitulo;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView dgvArticulos;
         private System.Windows.Forms.DataGridViewTextBoxColumn clColdigo;
         private System.Windows.Forms.DataGridViewTextBoxColumn clDescripcion;
         private System.Windows.Forms.DataGridViewTextBoxColumn clCosto;
