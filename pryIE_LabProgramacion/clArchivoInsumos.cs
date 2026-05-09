@@ -10,8 +10,8 @@ namespace pryIE_LabProgramacion
 {
     internal class clArchivoInsumos
     {
-        public string NombreArchivoR = "Rubros.csv";
-        public string NombreArchivoA = "Articulos.csv";
+        public string NombreArchivoR = "RUBROS.csv";
+        public string NombreArchivoA = "ARTICULOS.csv";
         public void CargarRubros(ComboBox cbRubros)
         {
             
