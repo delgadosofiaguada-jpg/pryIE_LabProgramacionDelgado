@@ -84,6 +84,39 @@ namespace pryIE_LabProgramacion
                 MessageBox.Show("Por favor, seleccione un rubro primero.");
             }
         }
+        //EXPORTAR
+        public void ExportarRubro(string rubro)
+        {
+            string DatoLeido;
+            string[] vecDatos;
+
+
+            decimal costo;
+            int stock;
+            decimal valorStock;
+
+            StreamReader AD= new StreamReader(NombreArchivoA);
+            StreamWriter Reporte = new StreamWriter("ReporteArticulosExportados.csv",false);
+            Reporte.WriteLine("Código;Descripcion;Costo;Stock,Valor en Stock");
+
+            DatoLeido = AD.ReadLine();
+            while (DatoLeido !=null)
+            {
+                vecDatos =DatoLeido.Split(';');
+                if (vecDatos[3] ==rubro)
+                {
+                    costo = Convert.ToDecimal(vecDatos[2]);
+                    stock = Convert.ToInt32(vecDatos[4]);
+                    valorStock = costo * stock;
+                    Reporte.WriteLine($"{vecDatos[0]};{vecDatos[1]};{vecDatos[2]};{vecDatos[4]};{valorStock}");
+                }
+                DatoLeido=AD.ReadLine();
+            }
+            AD.Close();
+            Reporte.Close();
+            AD.Dispose();
+        }
+
     }
 }
 

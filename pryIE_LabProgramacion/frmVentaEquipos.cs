@@ -39,7 +39,8 @@ namespace pryIE_LabProgramacion
 
         private void cmdExportarDatos_Click(object sender, EventArgs e)
         {
-
+            x.ExportarRubro(cbRubros.Text);
+            MessageBox.Show("Los datos fueron exportados exitosamente!");
         }
     }
 }
