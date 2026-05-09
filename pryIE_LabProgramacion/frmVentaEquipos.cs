@@ -30,12 +30,16 @@ namespace pryIE_LabProgramacion
         private void frmVentaEquipos_Load(object sender, EventArgs e)
         {
             x.CargarRubros(cbRubros);
-           
         }
 
         private void cmdConsultar_Click(object sender, EventArgs e)
         {
             x.ListarArticulos(cbRubros, dgvArticulos, lblCantidad, lblTotal);
+        }
+
+        private void cmdExportarDatos_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
