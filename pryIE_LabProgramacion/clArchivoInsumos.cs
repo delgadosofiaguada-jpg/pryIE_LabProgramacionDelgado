@@ -12,36 +12,29 @@ namespace pryIE_LabProgramacion
     {
         public string NombreArchivoR = "RUBROS.csv";
         public string NombreArchivoA = "ARTICULOS.csv";
+
+        //CARGA DE COMBOBOX RUBROS
         public void CargarRubros(ComboBox cbRubros)
         {
-            
             string DatosLeidos;
             cbRubros.Items.Clear();
-            //abrir
+            
             StreamReader AD = new StreamReader(NombreArchivoR);
-
-            //leer
             DatosLeidos = AD.ReadLine();
            
-
             while (DatosLeidos != null)
             {
-
-                // Lo agregamos directamente al ComboBox
                 if (DatosLeidos != "")
                 {
                     cbRubros.Items.Add(DatosLeidos);
                 }
-
-                // Leer la siguiente línea al final del ciclo
                 DatosLeidos = AD.ReadLine();
             }
-
-            //cerrar
             AD.Close();
             AD.Dispose();
-
         }
+
+        //CARGA DE GRILLA-ARTICULOS
         public void ListarArticulos(ComboBox cbRubros, DataGridView dgvArticulos, Label lblCantidad, Label lblTotal)
         { 
             string DatosLeidos;
@@ -63,10 +56,8 @@ namespace pryIE_LabProgramacion
                     {
                         valorstock = Convert.ToDecimal(VectorDatos[2]) * Convert.ToInt32(VectorDatos[4]);
 
-                        // Agregamos la fila a la grilla
+                        // Agrega fila a la grilla
                         dgvArticulos.Rows.Add(VectorDatos[0], VectorDatos[1], VectorDatos[2], VectorDatos[4], valorstock);
-
-                        // Incrementamos contador y acumulador
                         cantidad++;
                         totalgeneral=totalgeneral+ valorstock;
                     }
@@ -75,7 +66,6 @@ namespace pryIE_LabProgramacion
                 AD.Close();
                 AD.Dispose();
 
-                // Mostramos los resultados en las etiquetas
                 lblCantidad.Text = "Cantidad: " + cantidad.ToString();
                 lblTotal.Text = "Total: $" + totalgeneral.ToString();
             }
@@ -84,22 +74,20 @@ namespace pryIE_LabProgramacion
                 MessageBox.Show("Por favor, seleccione un rubro primero.");
             }
         }
-        //EXPORTAR
+        //EXPORTAR DATOS
         public void ExportarRubro(string rubro)
         {
             string DatoLeido;
             string[] vecDatos;
-
-
             decimal costo;
             int stock;
             decimal valorStock;
 
-            StreamReader AD= new StreamReader(NombreArchivoA);
-            StreamWriter Reporte = new StreamWriter("ReporteArticulosExportados.csv",false);
-            Reporte.WriteLine("Código;Descripcion;Costo;Stock,Valor en Stock");
-
+            StreamReader AD = new StreamReader(NombreArchivoA);
+            StreamWriter Reporte = new StreamWriter("ReporteArticulosExportados.csv", false,System.Text.Encoding.UTF8);//false para que no se sobreescriba y encoding para que se guarde con el formato correcto2
+            Reporte.WriteLine("Código;Descripcion;Costo;Stock;Valor en Stock");
             DatoLeido = AD.ReadLine();
+
             while (DatoLeido !=null)
             {
                 vecDatos =DatoLeido.Split(';');

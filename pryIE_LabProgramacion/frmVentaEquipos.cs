@@ -41,6 +41,10 @@ namespace pryIE_LabProgramacion
         {
             x.ExportarRubro(cbRubros.Text);
             MessageBox.Show("Los datos fueron exportados exitosamente!");
+            cbRubros.SelectedIndex = -1;
+            dgvArticulos.Rows.Clear();
+            lblCantidad.Text=("");
+            lblTotal.Text = "";
         }
     }
 }
