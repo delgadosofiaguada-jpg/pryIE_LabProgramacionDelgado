@@ -84,10 +84,12 @@ namespace pryIE_LabProgramacion
             decimal valorStock;
 
             StreamReader AD = new StreamReader(NombreArchivoA);
-            StreamWriter Reporte = new StreamWriter("ReporteArticulosExportados.csv", false,System.Text.Encoding.UTF8);//false para que no se sobreescriba y encoding para que se guarde con el formato correcto2
+
+            StreamWriter Reporte = new StreamWriter("ReporteArticulosExportados.csv", true,System.Text.Encoding.UTF8);//false para que no se sobreescriba y encoding para que se guarde con el formato correcto2
             Reporte.WriteLine("Código;Descripcion;Costo;Stock;Valor en Stock");
             DatoLeido = AD.ReadLine();
-
+            
+           
             while (DatoLeido !=null)
             {
                 vecDatos =DatoLeido.Split(';');
@@ -98,7 +100,8 @@ namespace pryIE_LabProgramacion
                     valorStock = costo * stock;
                     Reporte.WriteLine($"{vecDatos[0]};{vecDatos[1]};{vecDatos[2]};{vecDatos[4]};{valorStock}");
                 }
-                DatoLeido=AD.ReadLine();
+
+                DatoLeido = AD.ReadLine();
             }
             AD.Close();
             Reporte.Close();
