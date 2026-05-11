@@ -32,6 +32,11 @@
             this.lblRubros = new System.Windows.Forms.Label();
             this.lblTitulo = new System.Windows.Forms.Label();
             this.dgvArticulos = new System.Windows.Forms.DataGridView();
+            this.clColdigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.clValorStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.cmdConsultar = new System.Windows.Forms.Button();
             this.cmdExportarDatos = new System.Windows.Forms.Button();
             this.lblCantidad = new System.Windows.Forms.Label();
@@ -39,16 +44,12 @@
             this.lblCantlabel = new System.Windows.Forms.Label();
             this.lblTotlabel = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.LinkLabel();
-            this.clColdigo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clDescripcion = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clCosto = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.clValorStock = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
             // cbRubros
             // 
+            this.cbRubros.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRubros.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRubros.FormattingEnabled = true;
             this.cbRubros.Location = new System.Drawing.Point(188, 74);
@@ -96,6 +97,41 @@
             this.dgvArticulos.Size = new System.Drawing.Size(942, 281);
             this.dgvArticulos.TabIndex = 3;
             // 
+            // clColdigo
+            // 
+            this.clColdigo.HeaderText = "Código";
+            this.clColdigo.MinimumWidth = 6;
+            this.clColdigo.Name = "clColdigo";
+            this.clColdigo.Width = 125;
+            // 
+            // clDescripcion
+            // 
+            this.clDescripcion.HeaderText = "Descripcion";
+            this.clDescripcion.MinimumWidth = 6;
+            this.clDescripcion.Name = "clDescripcion";
+            this.clDescripcion.Width = 190;
+            // 
+            // clCosto
+            // 
+            this.clCosto.HeaderText = "Costo";
+            this.clCosto.MinimumWidth = 6;
+            this.clCosto.Name = "clCosto";
+            this.clCosto.Width = 125;
+            // 
+            // clStock
+            // 
+            this.clStock.HeaderText = "Stock";
+            this.clStock.MinimumWidth = 6;
+            this.clStock.Name = "clStock";
+            this.clStock.Width = 125;
+            // 
+            // clValorStock
+            // 
+            this.clValorStock.HeaderText = "Valor en Stock";
+            this.clValorStock.MinimumWidth = 6;
+            this.clValorStock.Name = "clValorStock";
+            this.clValorStock.Width = 110;
+            // 
             // cmdConsultar
             // 
             this.cmdConsultar.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -110,6 +146,7 @@
             // 
             // cmdExportarDatos
             // 
+            this.cmdExportarDatos.Enabled = false;
             this.cmdExportarDatos.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdExportarDatos.Location = new System.Drawing.Point(812, 586);
             this.cmdExportarDatos.Margin = new System.Windows.Forms.Padding(4);
@@ -176,40 +213,6 @@
             this.lblInfo.TabStop = true;
             this.lblInfo.Text = "Datos del desarrollador";
             this.lblInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblInfo_LinkClicked);
-            // 
-            // clColdigo
-            // 
-            this.clColdigo.HeaderText = "Código";
-            this.clColdigo.MinimumWidth = 6;
-            this.clColdigo.Name = "clColdigo";
-            this.clColdigo.Width = 125;
-            // 
-            // clDescripcion
-            // 
-            this.clDescripcion.HeaderText = "Descripcion";
-            this.clDescripcion.MinimumWidth = 6;
-            this.clDescripcion.Name = "clDescripcion";
-            this.clDescripcion.Width = 190;
-            // 
-            // clCosto
-            // 
-            this.clCosto.HeaderText = "Costo";
-            this.clCosto.MinimumWidth = 6;
-            this.clCosto.Name = "clCosto";
-            this.clCosto.Width = 125;
-            // 
-            // clStock
-            // 
-            this.clStock.HeaderText = "Stock";
-            this.clStock.MinimumWidth = 6;
-            this.clStock.Name = "clStock";
-            // 
-            // clValorStock
-            // 
-            this.clValorStock.HeaderText = "Valor en Stock";
-            this.clValorStock.MinimumWidth = 6;
-            this.clValorStock.Name = "clValorStock";
-            this.clValorStock.Width = 110;
             // 
             // frmVentaEquipos
             // 

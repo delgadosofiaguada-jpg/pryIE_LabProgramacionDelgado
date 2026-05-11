@@ -35,16 +35,26 @@ namespace pryIE_LabProgramacion
         private void cmdConsultar_Click(object sender, EventArgs e)
         {
             x.ListarArticulos(cbRubros, dgvArticulos, lblCantidad, lblTotal);
+            cmdExportarDatos.Enabled = true;
+
         }
 
         private void cmdExportarDatos_Click(object sender, EventArgs e)
         {
-            x.ExportarRubro(cbRubros.Text);
-            MessageBox.Show("Los datos fueron exportados exitosamente!");
-            cbRubros.SelectedIndex = -1;
-            dgvArticulos.Rows.Clear();
-            lblCantidad.Text=("");
-            lblTotal.Text = "";
+            if (dgvArticulos.Rows.Count != 0)
+            {
+                x.ExportarRubro(cbRubros.Text);
+
+                cbRubros.SelectedIndex = -1;
+                dgvArticulos.Rows.Clear();
+                lblCantidad.Text = "";
+                lblTotal.Text = "";
+                cmdExportarDatos.Enabled = false; 
+            }
+            else
+            {
+                MessageBox.Show("No hay datos para exportar. Por favor, consulte un rubro primero.");
+            }
         }
     }
 }

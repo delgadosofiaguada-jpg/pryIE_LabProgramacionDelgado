@@ -103,6 +103,7 @@ namespace pryIE_LabProgramacion
 
                 DatoLeido = AD.ReadLine();
             }
+            MessageBox.Show("Los datos fueron exportados exitosamente!");
             AD.Close();
             Reporte.Close();
             AD.Dispose();
