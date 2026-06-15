@@ -27,12 +27,12 @@ namespace pryIE_LabProgramacion
         private decimal TotalStock = 0;
 
         public int CantArticulos { get { return cant; } }
-        public decimal TotalVStock {get { return TotalStock; } } 
+        public decimal TotalVStock { get { return TotalStock; } }
 
         //CARGA DE COMBOBOX RUBROS
         public void CargarRubros(ComboBox cbRubros)
         {
-            
+
             try
             {
                 cbRubros.Items.Clear();
@@ -43,9 +43,9 @@ namespace pryIE_LabProgramacion
                 comando.CommandText = TabRubros;
 
                 OleDbDataReader DR = comando.ExecuteReader();
-                while(DR.Read())
+                while (DR.Read())
                 {
-                    cbRubros.Items.Add(DR.GetString(0));               
+                    cbRubros.Items.Add(DR.GetString(0));
                 }
                 conexion.Close();
             }
@@ -53,8 +53,8 @@ namespace pryIE_LabProgramacion
             {
                 MessageBox.Show(e.ToString());
             }
-            
-            
+
+
         }
 
         //CARGA DE GRILLA-ARTICULOS
@@ -71,14 +71,14 @@ namespace pryIE_LabProgramacion
 
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" +rubro+ "'";
+                comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + rubro + "'";
 
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
                 adapter.Fill(DS, TabArticulos);
                 conexion.Close();
 
-                if(DS.Tables[TabArticulos].Rows.Count >0)
+                if (DS.Tables[TabArticulos].Rows.Count > 0)
                 {
                     foreach (DataRow fila in DS.Tables[TabArticulos].Rows)
                     {
@@ -86,15 +86,15 @@ namespace pryIE_LabProgramacion
                         int stock = Convert.ToInt32(fila["Stock"]);
                         decimal valstock = costo * stock;
 
-                        grilla.Rows.Add(fila["Codigo"].ToString(),fila["Descripcion"].ToString(), costo.ToString("C"), stock, valstock.ToString("C"));
+                        grilla.Rows.Add(fila["Codigo"].ToString(), fila["Descripcion"].ToString(), costo.ToString("C"), stock, valstock.ToString("C"));
                         cant++;
                         TotalStock += valstock;
                     }
-                    
+
                 }
 
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
@@ -109,7 +109,7 @@ namespace pryIE_LabProgramacion
                 conexion.Open();
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = "SELECT * FROM Articulos WHERE Rubros = '" + rubro + "'";
+                comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + rubro + "'";
 
                 OleDbDataReader DR = comando.ExecuteReader();
                 StreamWriter reporte = new StreamWriter(rutaArchivo, false, Encoding.UTF8);
@@ -143,7 +143,7 @@ namespace pryIE_LabProgramacion
                     }
 
                 }
-                
+
                 reporte.WriteLine();
                 reporte.WriteLine("Total de articulos;" + cantidadExport);
                 reporte.WriteLine("Valor en stock total;" + totalStockExport);
@@ -154,8 +154,8 @@ namespace pryIE_LabProgramacion
             catch (Exception e) { MessageBox.Show(e.ToString()); }
         }
 
-        
-           
+
+
 
         //IMPRIMIR 
         public void Imprimir(PrintPageEventArgs reporte, DataGridView dgvArticulos, string rubro)
@@ -182,7 +182,7 @@ namespace pryIE_LabProgramacion
                 conexion.Open();
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
-                comando.CommandText = "SELECT * FROM Articulos WHERE Rubros = '" + Rub + "'";
+                comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + Rub + "'";
 
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
@@ -208,4 +208,3 @@ namespace pryIE_LabProgramacion
         }
     }
 }
-

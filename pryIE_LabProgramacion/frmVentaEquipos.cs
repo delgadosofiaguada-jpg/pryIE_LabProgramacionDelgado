@@ -71,10 +71,6 @@ namespace pryIE_LabProgramacion
             x.Imprimir(e, dgvArticulos, cbRubros.Text);
         }
 
-        private void prtDocumento_PrintPage_1(object sender, PrintPageEventArgs e)
-        {
-
-        }
 
         private void cbRubros_SelectedIndexChanged(object sender, EventArgs e)
         {

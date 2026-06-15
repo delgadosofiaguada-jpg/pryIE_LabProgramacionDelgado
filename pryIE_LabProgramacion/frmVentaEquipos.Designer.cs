@@ -217,6 +217,7 @@
             this.cmdImprimir.TabIndex = 11;
             this.cmdImprimir.Text = "Imprimir";
             this.cmdImprimir.UseVisualStyleBackColor = true;
+            this.cmdImprimir.Click += new System.EventHandler(this.cmdImprimir_Click);
             // 
             // prtVentana
             // 
@@ -224,7 +225,7 @@
             // 
             // prtDocumento
             // 
-            this.prtDocumento.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.prtDocumento_PrintPage_1);
+            this.prtDocumento.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.prtDocumento_PrintPage);
             // 
             // frmVentaEquipos
             // 
@@ -278,4 +279,3 @@
         private System.Windows.Forms.SaveFileDialog sfdGuarda;
     }
 }
-
