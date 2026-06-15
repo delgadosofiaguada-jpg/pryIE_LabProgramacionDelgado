@@ -1,12 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Drawing.Printing;
 using System.Windows.Forms;
 
 namespace pryIE_LabProgramacion
@@ -17,7 +10,9 @@ namespace pryIE_LabProgramacion
         {
             InitializeComponent();
         }
+
         clArchivoInsumos x = new clArchivoInsumos();
+
         private void lblInfo_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             MessageBox.Show(" Analista de Sistemas\n" +
@@ -30,30 +25,66 @@ namespace pryIE_LabProgramacion
         private void frmVentaEquipos_Load(object sender, EventArgs e)
         {
             x.CargarRubros(cbRubros);
+            cmdConsultar.Enabled = false;
+            cmdExportarDatos.Enabled = false;
+            cmdImprimir.Enabled = false;
         }
 
         private void cmdConsultar_Click(object sender, EventArgs e)
         {
-            x.ListarArticulos(cbRubros, dgvArticulos, lblCantidad, lblTotal);
-            cmdExportarDatos.Enabled = true;
+            x.ListarArticulos(dgvArticulos, cbRubros.Text);
 
+            lblCantidad.Text = x.CantArticulos.ToString();
+            lblTotal.Text = x.TotalVStock.ToString("C");
+
+            cmdExportarDatos.Enabled = true;
+            cmdImprimir.Enabled = true;
         }
 
         private void cmdExportarDatos_Click(object sender, EventArgs e)
         {
-            if (dgvArticulos.Rows.Count != 0)
-            {
-                x.ExportarRubro(cbRubros.Text);
+            sfdGuarda.FileName = "ReporteArticulos_" + cbRubros.Text + ".csv";
+            sfdGuarda.Filter = "Archivos CSV (*.csv)|*.csv|Todos los archivos (*.*)|*.*";
+            sfdGuarda.Title = "Guardar reporte de artículos";
 
-                cbRubros.SelectedIndex = -1;
-                dgvArticulos.Rows.Clear();
-                lblCantidad.Text = "";
-                lblTotal.Text = "";
-                cmdExportarDatos.Enabled = false; 
+            if (sfdGuarda.ShowDialog() == DialogResult.OK)
+            {
+                x.ExportarRubro(cbRubros.Text, sfdGuarda.FileName);
+                MessageBox.Show("Archivo exportado correctamente", "Exportación");
+            }
+        }
+
+        private void cmdImprimir_Click(object sender, EventArgs e)
+        {
+            prtVentana.Document = prtDocumento;
+
+            if (prtVentana.ShowDialog() == DialogResult.OK)
+            {
+                prtDocumento.PrinterSettings = prtVentana.PrinterSettings;
+                prtDocumento.Print();
+                MessageBox.Show("Reporte impreso", "Impresión");
+            }
+        }
+
+        private void prtDocumento_PrintPage(object sender, PrintPageEventArgs e)
+        {
+            x.Imprimir(e, dgvArticulos, cbRubros.Text);
+        }
+
+        private void prtDocumento_PrintPage_1(object sender, PrintPageEventArgs e)
+        {
+
+        }
+
+        private void cbRubros_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (cbRubros.Text != "")
+            {
+                cmdConsultar.Enabled = true;
             }
             else
             {
-                MessageBox.Show("No hay datos para exportar. Por favor, consulte un rubro primero.");
+                cmdConsultar.Enabled = false;
             }
         }
     }

@@ -44,6 +44,10 @@
             this.lblCantlabel = new System.Windows.Forms.Label();
             this.lblTotlabel = new System.Windows.Forms.Label();
             this.lblInfo = new System.Windows.Forms.LinkLabel();
+            this.cmdImprimir = new System.Windows.Forms.Button();
+            this.prtVentana = new System.Windows.Forms.PrintDialog();
+            this.prtDocumento = new System.Drawing.Printing.PrintDocument();
+            this.sfdGuarda = new System.Windows.Forms.SaveFileDialog();
             ((System.ComponentModel.ISupportInitialize)(this.dgvArticulos)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,31 +56,29 @@
             this.cbRubros.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbRubros.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbRubros.FormattingEnabled = true;
-            this.cbRubros.Location = new System.Drawing.Point(188, 74);
-            this.cbRubros.Margin = new System.Windows.Forms.Padding(4);
+            this.cbRubros.Location = new System.Drawing.Point(141, 60);
             this.cbRubros.Name = "cbRubros";
-            this.cbRubros.Size = new System.Drawing.Size(177, 26);
+            this.cbRubros.Size = new System.Drawing.Size(134, 23);
             this.cbRubros.TabIndex = 0;
+            this.cbRubros.SelectedIndexChanged += new System.EventHandler(this.cbRubros_SelectedIndexChanged);
             // 
             // lblRubros
             // 
             this.lblRubros.AutoSize = true;
-            this.lblRubros.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblRubros.Location = new System.Drawing.Point(16, 76);
-            this.lblRubros.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblRubros.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblRubros.Location = new System.Drawing.Point(12, 62);
             this.lblRubros.Name = "lblRubros";
-            this.lblRubros.Size = new System.Drawing.Size(151, 24);
+            this.lblRubros.Size = new System.Drawing.Size(124, 17);
             this.lblRubros.TabIndex = 1;
             this.lblRubros.Text = "Seleccionar rubro:";
             // 
             // lblTitulo
             // 
             this.lblTitulo.AutoSize = true;
-            this.lblTitulo.Font = new System.Drawing.Font("Raleway", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTitulo.Location = new System.Drawing.Point(16, 9);
-            this.lblTitulo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTitulo.Location = new System.Drawing.Point(12, 7);
             this.lblTitulo.Name = "lblTitulo";
-            this.lblTitulo.Size = new System.Drawing.Size(196, 25);
+            this.lblTitulo.Size = new System.Drawing.Size(168, 18);
             this.lblTitulo.TabIndex = 2;
             this.lblTitulo.Text = "Consulta de artículos";
             // 
@@ -90,11 +92,10 @@
             this.clCosto,
             this.clStock,
             this.clValorStock});
-            this.dgvArticulos.Location = new System.Drawing.Point(20, 176);
-            this.dgvArticulos.Margin = new System.Windows.Forms.Padding(4);
+            this.dgvArticulos.Location = new System.Drawing.Point(16, 131);
             this.dgvArticulos.Name = "dgvArticulos";
             this.dgvArticulos.RowHeadersWidth = 51;
-            this.dgvArticulos.Size = new System.Drawing.Size(942, 281);
+            this.dgvArticulos.Size = new System.Drawing.Size(706, 228);
             this.dgvArticulos.TabIndex = 3;
             // 
             // clColdigo
@@ -134,11 +135,10 @@
             // 
             // cmdConsultar
             // 
-            this.cmdConsultar.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdConsultar.Location = new System.Drawing.Point(250, 120);
-            this.cmdConsultar.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdConsultar.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdConsultar.Location = new System.Drawing.Point(188, 98);
             this.cmdConsultar.Name = "cmdConsultar";
-            this.cmdConsultar.Size = new System.Drawing.Size(115, 33);
+            this.cmdConsultar.Size = new System.Drawing.Size(86, 27);
             this.cmdConsultar.TabIndex = 4;
             this.cmdConsultar.Text = "Consultar";
             this.cmdConsultar.UseVisualStyleBackColor = true;
@@ -147,11 +147,10 @@
             // cmdExportarDatos
             // 
             this.cmdExportarDatos.Enabled = false;
-            this.cmdExportarDatos.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdExportarDatos.Location = new System.Drawing.Point(812, 586);
-            this.cmdExportarDatos.Margin = new System.Windows.Forms.Padding(4);
+            this.cmdExportarDatos.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdExportarDatos.Location = new System.Drawing.Point(603, 486);
             this.cmdExportarDatos.Name = "cmdExportarDatos";
-            this.cmdExportarDatos.Size = new System.Drawing.Size(143, 33);
+            this.cmdExportarDatos.Size = new System.Drawing.Size(107, 27);
             this.cmdExportarDatos.TabIndex = 5;
             this.cmdExportarDatos.Text = "Exportar datos";
             this.cmdExportarDatos.UseVisualStyleBackColor = true;
@@ -161,41 +160,37 @@
             // 
             this.lblCantidad.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblCantidad.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantidad.Location = new System.Drawing.Point(778, 475);
-            this.lblCantidad.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantidad.Location = new System.Drawing.Point(584, 386);
             this.lblCantidad.Name = "lblCantidad";
-            this.lblCantidad.Size = new System.Drawing.Size(176, 27);
+            this.lblCantidad.Size = new System.Drawing.Size(132, 22);
             this.lblCantidad.TabIndex = 6;
             // 
             // lblTotal
             // 
             this.lblTotal.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lblTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotal.Location = new System.Drawing.Point(778, 523);
-            this.lblTotal.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotal.Location = new System.Drawing.Point(584, 425);
             this.lblTotal.Name = "lblTotal";
-            this.lblTotal.Size = new System.Drawing.Size(176, 27);
+            this.lblTotal.Size = new System.Drawing.Size(132, 22);
             this.lblTotal.TabIndex = 7;
             // 
             // lblCantlabel
             // 
             this.lblCantlabel.AutoSize = true;
-            this.lblCantlabel.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblCantlabel.Location = new System.Drawing.Point(576, 482);
-            this.lblCantlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblCantlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblCantlabel.Location = new System.Drawing.Point(432, 392);
             this.lblCantlabel.Name = "lblCantlabel";
-            this.lblCantlabel.Size = new System.Drawing.Size(181, 24);
+            this.lblCantlabel.Size = new System.Drawing.Size(145, 17);
             this.lblCantlabel.TabIndex = 8;
             this.lblCantlabel.Text = "Cantidad de articulos:";
             // 
             // lblTotlabel
             // 
             this.lblTotlabel.AutoSize = true;
-            this.lblTotlabel.Font = new System.Drawing.Font("Raleway", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblTotlabel.Location = new System.Drawing.Point(576, 531);
-            this.lblTotlabel.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblTotlabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblTotlabel.Location = new System.Drawing.Point(432, 431);
             this.lblTotlabel.Name = "lblTotlabel";
-            this.lblTotlabel.Size = new System.Drawing.Size(139, 24);
+            this.lblTotlabel.Size = new System.Drawing.Size(116, 17);
             this.lblTotlabel.TabIndex = 9;
             this.lblTotlabel.Text = "Total valor stock:";
             // 
@@ -203,23 +198,41 @@
             // 
             this.lblInfo.AutoSize = true;
             this.lblInfo.DisabledLinkColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.lblInfo.Font = new System.Drawing.Font("Raleway", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblInfo.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.999999F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblInfo.LinkColor = System.Drawing.Color.MidnightBlue;
-            this.lblInfo.Location = new System.Drawing.Point(17, 614);
-            this.lblInfo.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.lblInfo.Location = new System.Drawing.Point(13, 499);
             this.lblInfo.Name = "lblInfo";
-            this.lblInfo.Size = new System.Drawing.Size(171, 21);
+            this.lblInfo.Size = new System.Drawing.Size(135, 15);
             this.lblInfo.TabIndex = 10;
             this.lblInfo.TabStop = true;
             this.lblInfo.Text = "Datos del desarrollador";
             this.lblInfo.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.lblInfo_LinkClicked);
             // 
+            // cmdImprimir
+            // 
+            this.cmdImprimir.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdImprimir.Location = new System.Drawing.Point(500, 486);
+            this.cmdImprimir.Name = "cmdImprimir";
+            this.cmdImprimir.Size = new System.Drawing.Size(86, 27);
+            this.cmdImprimir.TabIndex = 11;
+            this.cmdImprimir.Text = "Imprimir";
+            this.cmdImprimir.UseVisualStyleBackColor = true;
+            // 
+            // prtVentana
+            // 
+            this.prtVentana.UseEXDialog = true;
+            // 
+            // prtDocumento
+            // 
+            this.prtDocumento.PrintPage += new System.Drawing.Printing.PrintPageEventHandler(this.prtDocumento_PrintPage_1);
+            // 
             // frmVentaEquipos
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.LightGray;
-            this.ClientSize = new System.Drawing.Size(970, 646);
+            this.ClientSize = new System.Drawing.Size(728, 525);
+            this.Controls.Add(this.cmdImprimir);
             this.Controls.Add(this.lblInfo);
             this.Controls.Add(this.lblTotlabel);
             this.Controls.Add(this.lblCantlabel);
@@ -231,7 +244,6 @@
             this.Controls.Add(this.lblTitulo);
             this.Controls.Add(this.lblRubros);
             this.Controls.Add(this.cbRubros);
-            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "frmVentaEquipos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Consulta de articulos en un rubro";
@@ -260,6 +272,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn clCosto;
         private System.Windows.Forms.DataGridViewTextBoxColumn clStock;
         private System.Windows.Forms.DataGridViewTextBoxColumn clValorStock;
+        private System.Windows.Forms.Button cmdImprimir;
+        private System.Windows.Forms.PrintDialog prtVentana;
+        private System.Drawing.Printing.PrintDocument prtDocumento;
+        private System.Windows.Forms.SaveFileDialog sfdGuarda;
     }
 }
 
