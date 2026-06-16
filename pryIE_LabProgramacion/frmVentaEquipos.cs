@@ -17,7 +17,7 @@ namespace pryIE_LabProgramacion
         {
             MessageBox.Show(" Analista de Sistemas\n" +
                             "Laboratorio de Programación 2\n" +
-                            "1º Instancia Evaluativa\n" +
+                            "IE2º Instancia Evaluativa\n" +
                             "Información del Alumno\n" +
                             "DNI:46656705 – Delgado Sofía");
         }

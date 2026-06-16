@@ -162,9 +162,9 @@ namespace pryIE_LabProgramacion
         {
             try
             {
-                Font LetraTitulo = new Font("Arial", 14);
-                Font LetraEncabezado = new Font("Arial", 10, FontStyle.Bold);
-                Font LetraTexto = new Font("Arial", 9);
+                Font LetraTitulo = new Font("Arial", 12);
+                Font LetraEncabezado = new Font("Arial", 9, FontStyle.Bold);
+                Font LetraTexto = new Font("Arial", 8);
 
                 int f = 100;
 
@@ -172,9 +172,9 @@ namespace pryIE_LabProgramacion
 
                 reporte.Graphics.DrawString("Código", LetraEncabezado, Brushes.Blue, 100, f);
                 reporte.Graphics.DrawString("Descripción", LetraEncabezado, Brushes.Blue, 220, f);
-                reporte.Graphics.DrawString("Costo", LetraEncabezado, Brushes.Blue, 480, f);
-                reporte.Graphics.DrawString("Stock", LetraEncabezado, Brushes.Blue, 570, f);
-                reporte.Graphics.DrawString("Valor Stock", LetraEncabezado, Brushes.Blue, 640, f);
+                reporte.Graphics.DrawString("Costo", LetraEncabezado, Brushes.Blue, 570, f);
+                reporte.Graphics.DrawString("Stock", LetraEncabezado, Brushes.Blue, 670, f);
+                reporte.Graphics.DrawString("Valor Stock", LetraEncabezado, Brushes.Blue, 740, f);
 
                 f = f + 20;
 
@@ -194,9 +194,9 @@ namespace pryIE_LabProgramacion
 
                     reporte.Graphics.DrawString(fila.Cells[0].Value?.ToString(), LetraTexto, Brushes.Black, 100, f);
                     reporte.Graphics.DrawString(fila.Cells[1].Value?.ToString(), LetraTexto, Brushes.Black, 220, f);
-                    reporte.Graphics.DrawString(fila.Cells[2].Value?.ToString(), LetraTexto, Brushes.Black, 480, f);
-                    reporte.Graphics.DrawString(fila.Cells[3].Value?.ToString(), LetraTexto, Brushes.Black, 570, f);
-                    reporte.Graphics.DrawString(fila.Cells[4].Value?.ToString(), LetraTexto, Brushes.Black, 640, f);
+                    reporte.Graphics.DrawString(fila.Cells[2].Value?.ToString(), LetraTexto, Brushes.Black, 570, f);
+                    reporte.Graphics.DrawString(fila.Cells[3].Value?.ToString(), LetraTexto, Brushes.Black, 670, f);
+                    reporte.Graphics.DrawString(fila.Cells[4].Value?.ToString(), LetraTexto, Brushes.Black, 740, f);
 
                     f = f + 15;
                 }
