@@ -15,12 +15,16 @@ namespace pryIE_LabProgramacion
 {
     internal class clArchivoInsumos
     {
+        //Que base de datos usar y donde esta el archivo
+        //Si es con mdb: "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=Clientes.mdb";
         private string CadenaConexion = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=InventarioArticulos.accdb;";
-
+        
+       
+        
         OleDbConnection conexion = new OleDbConnection();
         OleDbCommand comando = new OleDbCommand();
         OleDbDataAdapter adapter;
-        private string TabArticulos = "Articulos";
+        private string TabArticulos = "Articulos";//Guarda en string el nombre de la tabla
         private string TabRubros = "Rubros";
         private string Rub = "";
         private int cant = 0;
@@ -33,23 +37,27 @@ namespace pryIE_LabProgramacion
         public void CargarRubros(ComboBox cbRubros)
         {
 
-            try
+            try//Todo codigo que pueda generar un error
             {
                 cbRubros.Items.Clear();
+                
+                //Asigna la cadena y abre la conexion(BD)
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
+
+                //Configura el comando
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.TableDirect;
-                comando.CommandText = TabRubros;
+                comando.CommandText = TabRubros;//Tabla a utilizar o Instruccion SQL
 
                 OleDbDataReader DR = comando.ExecuteReader();
                 while (DR.Read())
                 {
                     cbRubros.Items.Add(DR.GetString(0));
                 }
-                conexion.Close();
+                conexion.Close();//Cierra la conexion a la BD
             }
-            catch (Exception e)
+            catch (Exception e)//Atrapa el error
             {
                 MessageBox.Show(e.ToString());
             }
@@ -57,7 +65,7 @@ namespace pryIE_LabProgramacion
 
         }
 
-        //CARGA DE GRILLA-ARTICULOS
+        //CARGA DE GRILLA-ARTICULOS : Filtra articulos por rubro y los muestra en la grilla
         public void ListarArticulos(DataGridView grilla, string rubro)
         {
             try
@@ -65,30 +73,38 @@ namespace pryIE_LabProgramacion
                 Rub = rubro;
                 cant = 0;
                 TotalStock = 0;
-                grilla.Rows.Clear();
+                grilla.Rows.Clear();//Limpia la grilla antes de cargar
+
+                //1: Abre conexion y configura el comando
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
-
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
                 comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + rubro + "'";
 
+               
+                //2: DataAdapter llena el DataSet y cerramos conexion
+                
+                //Abrir, trae todo a memoria, cerrar y luego utilizar los datos
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
-                adapter.Fill(DS, TabArticulos);
-                conexion.Close();
+                adapter.Fill(DS, TabArticulos);//Fill trae los datos y los guarda en DS.Tables
+                conexion.Close();//Cierra la conexion
 
-                if (DS.Tables[TabArticulos].Rows.Count > 0)
+
+                //3: Recorrer filas con foreach
+                if (DS.Tables[TabArticulos].Rows.Count > 0)//Si hay datos cargados en articulos
                 {
-                    foreach (DataRow fila in DS.Tables[TabArticulos].Rows)
+                    foreach (DataRow fila in DS.Tables[TabArticulos].Rows)//Recorre por cada fila sus columnas
                     {
+                       //Guarda los datos en variables para luego colorarlas en la grilla
                         decimal costo = Convert.ToDecimal(fila["Costo"]);
                         int stock = Convert.ToInt32(fila["Stock"]);
                         decimal valstock = costo * stock;
 
                         grilla.Rows.Add(fila["Codigo"].ToString(), fila["Descripcion"].ToString(), costo.ToString("C"), stock, valstock.ToString("C"));
-                        cant++;
-                        TotalStock += valstock;
+                        cant++;//Cantidad de filas = articulos
+                        TotalStock += valstock;//Suma el valor de stock total de articulos
                     }
 
                 }
@@ -97,6 +113,7 @@ namespace pryIE_LabProgramacion
             catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
+                // MessageBox.Show("Error al listar artículos: " + e.Message);
             }
         }
 
