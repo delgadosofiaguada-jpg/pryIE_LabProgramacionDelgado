@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Drawing.Printing;
-using System.Windows.Forms;
+using System.Drawing.Printing;//AGREGAR
+using System.Windows.Forms;//AGREGAR 
 
 namespace pryIE_LabProgramacion
 {
@@ -43,9 +43,11 @@ namespace pryIE_LabProgramacion
 
         private void cmdExportarDatos_Click(object sender, EventArgs e)
         {
+            //SafeFileDialog = sfdGuarda : Ventana de Windows(Elegir carpeta y nombre del archivo)
+           
             sfdGuarda.FileName = "ReporteArticulos_" + cbRubros.Text + ".csv";
             sfdGuarda.Filter = "Archivos CSV (*.csv)|*.csv|Todos los archivos (*.*)|*.*";
-            sfdGuarda.Title = "Guardar reporte de artículos";
+            sfdGuarda.Title = "Guardar reporte de artículos";//Titulo ventana
 
             if (sfdGuarda.ShowDialog() == DialogResult.OK)
             {
@@ -56,12 +58,16 @@ namespace pryIE_LabProgramacion
 
         private void cmdImprimir_Click(object sender, EventArgs e)
         {
+            //PrintDialog = prtVentana : Dialogo de impresion
+            //PrintDocument = prtDocumento : Documento a imprimir
+            
+            // Se asigna el documento al diálogo de impresión
             prtVentana.Document = prtDocumento;
 
-            if (prtVentana.ShowDialog() == DialogResult.OK)
+            if (prtVentana.ShowDialog() == DialogResult.OK)//Si acepta
             {
                 prtDocumento.PrinterSettings = prtVentana.PrinterSettings;
-                prtDocumento.Print();
+                prtDocumento.Print();// Se inicia la impresión del documento(PrintPage)
                 MessageBox.Show("Reporte impreso", "Impresión");
             }
         }
@@ -69,6 +75,7 @@ namespace pryIE_LabProgramacion
         private void prtDocumento_PrintPage(object sender, PrintPageEventArgs e)
         {
             x.Imprimir(e, dgvArticulos, cbRubros.Text);
+            //Se llama al método Imprimir de la clase clArchivoInsumos
         }
 
 

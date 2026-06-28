@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
+using System.IO;//Agregar para StreamWriter
 using System.Data;
-using System.Data.OleDb;
-using System.Drawing;
-using System.Drawing.Printing;
+using System.Data.OleDb;//Agregar para conexion a BD Access
+using System.Drawing;//Agregar para fuentes y colores
+using System.Drawing.Printing;//Agregar para imprimir
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using System.Threading.Tasks;//Agregar para codificacion UTF8
+using System.Windows.Forms;//Agregar para ComboBox y DataGridView
 
 
 namespace pryIE_LabProgramacion
@@ -30,14 +30,20 @@ namespace pryIE_LabProgramacion
         private int cant = 0;
         private decimal TotalStock = 0;
 
-        public int CantArticulos { get { return cant; } }
+        public int CantArticulos { get { return cant; } }//Cantidad de articulos listados en la grilla
         public decimal TotalVStock { get { return TotalStock; } }
+
+
+        //DataAdapter + DataSet: Memoria, recorre varias veces, modifica datos(GRILLA, CALCULOS, TOTALES)
+        //DataReader: Trae datos de la BD, recorre 1 vez, no modifica datos (COMBOBOX, EXPORTAR)
+
+
 
         //CARGA DE COMBOBOX RUBROS
         public void CargarRubros(ComboBox cbRubros)
         {
 
-            try//Todo codigo que pueda generar un error
+            try //Todo codigo que pueda generar un error
             {
                 cbRubros.Items.Clear();
                 
@@ -47,12 +53,15 @@ namespace pryIE_LabProgramacion
 
                 //Configura el comando
                 comando.Connection = conexion;
-                comando.CommandType = CommandType.TableDirect;
-                comando.CommandText = TabRubros;//Tabla a utilizar o Instruccion SQL
+                comando.CommandType = CommandType.TableDirect;//TableDirect porque es con tabla
+                comando.CommandText = TabRubros;//Tabla a utilizar 
 
+                //DATA READER:Cada llamada a Read() avanza una fila y devuelve true. Cuando no hay más filas, false
                 OleDbDataReader DR = comando.ExecuteReader();
-                while (DR.Read())
+               
+                while (DR.Read())//Guarda en el cmb nombre de rubro
                 {
+                    //DR.GetInt32(n) o DR["nombre"]
                     cbRubros.Items.Add(DR.GetString(0));
                 }
                 conexion.Close();//Cierra la conexion a la BD
@@ -79,13 +88,16 @@ namespace pryIE_LabProgramacion
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
                 comando.Connection = conexion;
-                comando.CommandType = CommandType.Text;
+                comando.CommandType = CommandType.Text;//Text porque es con instruccion SQL
+                
+                // Aclara que se quiere filtrar por rubro, sino trae todos los articulos
                 comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + rubro + "'";
 
                
                 //2: DataAdapter llena el DataSet y cerramos conexion
                 
                 //Abrir, trae todo a memoria, cerrar y luego utilizar los datos
+              
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
                 adapter.Fill(DS, TabArticulos);//Fill trae los datos y los guarda en DS.Tables
@@ -97,11 +109,12 @@ namespace pryIE_LabProgramacion
                 {
                     foreach (DataRow fila in DS.Tables[TabArticulos].Rows)//Recorre por cada fila sus columnas
                     {
-                       //Guarda los datos en variables para luego colorarlas en la grilla
+                       
                         decimal costo = Convert.ToDecimal(fila["Costo"]);
                         int stock = Convert.ToInt32(fila["Stock"]);
                         decimal valstock = costo * stock;
 
+                        //costo.ToString("C"); $1.500,50 (MONEDA)
                         grilla.Rows.Add(fila["Codigo"].ToString(), fila["Descripcion"].ToString(), costo.ToString("C"), stock, valstock.ToString("C"));
                         cant++;//Cantidad de filas = articulos
                         TotalStock += valstock;//Suma el valor de stock total de articulos
@@ -117,6 +130,8 @@ namespace pryIE_LabProgramacion
             }
         }
 
+
+
         //EXPORTAR DATOS
         public void ExportarRubro(string rubro, string rutaArchivo)
         {
@@ -129,23 +144,28 @@ namespace pryIE_LabProgramacion
                 comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + rubro + "'";
 
                 OleDbDataReader DR = comando.ExecuteReader();
+
+
+                // PASO 4: crear el StreamWriter con la ruta del SaveFileDialog
+                // false = sobreescribir el archivo (no agregar al final)
                 StreamWriter reporte = new StreamWriter(rutaArchivo, false, Encoding.UTF8);
 
-                // TÍTULO
+                // TÍTULOS
                 reporte.WriteLine("Artículos clasificados por Rubro");
                 reporte.WriteLine("Rubro: " + rubro);
                 reporte.WriteLine("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
-                reporte.WriteLine();
+                reporte.WriteLine();//Espacio
                 reporte.WriteLine("Codigo;Descripcion;Costo;Stock;Valor en Stock");
 
                 int cantidadExport = 0;
                 decimal totalStockExport = 0;
 
+                //Cargar los datos fila por fila en el archivo
                 if (DR.HasRows)
                 {
                     while (DR.Read())
                     {
-                        decimal costo = DR.GetDecimal(2);
+                        decimal costo = DR.GetDecimal(2);//posicion
                         int stock = DR.GetInt32(4);
                         decimal valstock = costo * stock;
 
@@ -165,7 +185,7 @@ namespace pryIE_LabProgramacion
                 reporte.WriteLine("Total de articulos;" + cantidadExport);
                 reporte.WriteLine("Valor en stock total;" + totalStockExport);
 
-                reporte.Close();
+                reporte.Close();//Cierra el archivo
                 conexion.Close();
             }
             catch (Exception e) { MessageBox.Show(e.ToString()); }
@@ -179,33 +199,40 @@ namespace pryIE_LabProgramacion
         {
             try
             {
+                //Fuentes
                 Font LetraTitulo = new Font("Arial", 12);
                 Font LetraEncabezado = new Font("Arial", 9, FontStyle.Bold);
                 Font LetraTexto = new Font("Arial", 8);
 
-                int f = 100;
+                int f = 100; //Posicion vertical inicial 
 
+                // Título del reporte
                 reporte.Graphics.DrawString("Listado de Artículos - Rubro: " + rubro, LetraTitulo, Brushes.DarkBlue, 100, 50);
 
+                // Encabezados de las columnas  
                 reporte.Graphics.DrawString("Código", LetraEncabezado, Brushes.Blue, 100, f);
                 reporte.Graphics.DrawString("Descripción", LetraEncabezado, Brushes.Blue, 220, f);
                 reporte.Graphics.DrawString("Costo", LetraEncabezado, Brushes.Blue, 570, f);
                 reporte.Graphics.DrawString("Stock", LetraEncabezado, Brushes.Blue, 670, f);
                 reporte.Graphics.DrawString("Valor Stock", LetraEncabezado, Brushes.Blue, 740, f);
 
-                f = f + 20;
+                f = f + 20;// Salto de línea para los datos
 
+              
+                // Abrir la conexión y ejecutar la consulta para obtener los datos de los artículos
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
                 comando.Connection = conexion;
                 comando.CommandType = CommandType.Text;
                 comando.CommandText = "SELECT * FROM Articulos WHERE Rubro = '" + Rub + "'";
 
+                // Llenar un DataSet con los datos de los artículos
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
                 adapter.Fill(DS, TabArticulos);
 
-                foreach (DataGridViewRow fila in dgvArticulos.Rows)
+                
+                foreach (DataGridViewRow fila in dgvArticulos.Rows)//Recorre cada fila de la grilla
                 {
                     if (fila.IsNewRow) continue;
 
