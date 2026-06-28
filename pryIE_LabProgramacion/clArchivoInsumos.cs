@@ -7,7 +7,7 @@ using System.Drawing;//Agregar para fuentes y colores
 using System.Drawing.Printing;//Agregar para imprimir
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;//Agregar para codificacion UTF8
+using System.Threading.Tasks;//Agregar para codificacion UTF8   
 using System.Windows.Forms;//Agregar para ComboBox y DataGridView
 
 
@@ -43,7 +43,7 @@ namespace pryIE_LabProgramacion
         public void CargarRubros(ComboBox cbRubros)
         {
 
-            try //Todo codigo que pueda generar un error
+            try
             {
                 cbRubros.Items.Clear();
                 
@@ -64,9 +64,9 @@ namespace pryIE_LabProgramacion
                     //DR.GetInt32(n) o DR["nombre"]
                     cbRubros.Items.Add(DR.GetString(0));
                 }
-                conexion.Close();//Cierra la conexion a la BD
+                conexion.Close();
             }
-            catch (Exception e)//Atrapa el error
+            catch (Exception e)
             {
                 MessageBox.Show(e.ToString());
             }
@@ -82,9 +82,9 @@ namespace pryIE_LabProgramacion
                 Rub = rubro;
                 cant = 0;
                 TotalStock = 0;
-                grilla.Rows.Clear();//Limpia la grilla antes de cargar
+                grilla.Rows.Clear();
 
-                //1: Abre conexion y configura el comando
+                
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
                 comando.Connection = conexion;
@@ -95,13 +95,11 @@ namespace pryIE_LabProgramacion
 
                
                 //2: DataAdapter llena el DataSet y cerramos conexion
-                
-                //Abrir, trae todo a memoria, cerrar y luego utilizar los datos
               
                 adapter = new OleDbDataAdapter(comando);
                 DataSet DS = new DataSet();
                 adapter.Fill(DS, TabArticulos);//Fill trae los datos y los guarda en DS.Tables
-                conexion.Close();//Cierra la conexion
+                conexion.Close();
 
 
                 //3: Recorrer filas con foreach
@@ -116,8 +114,8 @@ namespace pryIE_LabProgramacion
 
                         //costo.ToString("C"); $1.500,50 (MONEDA)
                         grilla.Rows.Add(fila["Codigo"].ToString(), fila["Descripcion"].ToString(), costo.ToString("C"), stock, valstock.ToString("C"));
-                        cant++;//Cantidad de filas = articulos
-                        TotalStock += valstock;//Suma el valor de stock total de articulos
+                        cant++;//Cantidad de articulos
+                        TotalStock += valstock;//Stock total de articulos
                     }
 
                 }
@@ -154,7 +152,7 @@ namespace pryIE_LabProgramacion
                 reporte.WriteLine("Artículos clasificados por Rubro");
                 reporte.WriteLine("Rubro: " + rubro);
                 reporte.WriteLine("Fecha: " + DateTime.Now.ToString("dd/MM/yyyy HH:mm"));
-                reporte.WriteLine();//Espacio
+                reporte.WriteLine();
                 reporte.WriteLine("Codigo;Descripcion;Costo;Stock;Valor en Stock");
 
                 int cantidadExport = 0;
@@ -185,7 +183,7 @@ namespace pryIE_LabProgramacion
                 reporte.WriteLine("Total de articulos;" + cantidadExport);
                 reporte.WriteLine("Valor en stock total;" + totalStockExport);
 
-                reporte.Close();//Cierra el archivo
+                reporte.Close();
                 conexion.Close();
             }
             catch (Exception e) { MessageBox.Show(e.ToString()); }
