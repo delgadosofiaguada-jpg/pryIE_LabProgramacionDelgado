@@ -135,6 +135,7 @@ namespace pryIE_LabProgramacion
         {
             try
             {
+                conexion.Close();
                 conexion.ConnectionString = CadenaConexion;
                 conexion.Open();
                 comando.Connection = conexion;
